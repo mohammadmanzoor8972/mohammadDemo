@@ -71,23 +71,7 @@
   <access origin="mailto:*" launch-external="yes"/>
   <access origin="sms:*" launch-external="yes"/>
   <access origin="market:*" launch-external="yes"/>
-  <access origin="https://twitter.com" subdomains="true"/>
-  <access origin="http://twitter.com" subdomains="true"/>
-  <access origin="http://platform.twitter.com" subdomains="true"/>
-  <access origin="https://platform.twitter.com" subdomains="true"/>
-  <access origin="https://cdn.syndication.twimg.com"/>
-  <access origin="http://cdn.syndication.twimg.com"/>
-  <access origin="https://www.facebook.com" subdomains="true"/>
-  <access origin="http://www.facebook.com" subdomains="true"/>
-  <access origin="http://www.connect.facebook.net" subdomains="true"/>
-  <access origin="http://m.facebook.com" subdomains="true"/>
-  <allow-navigation href="about:*"/>
-  <allow-navigation href="https://www.facebook.com"/>
-  <allow-navigation href="http://www.facebook.com"/>
-  <allow-navigation href="http://www.connect.facebook.net"/>
-  <feature name="IntentAndNavigationFilter">
-    <param name="onload" value="true"/>
-  </feature>
+
   <version>3.2</version>
      <plugin name="cordova-plugin-console" spec="~1.0.3" />
     <plugin name="cordova-plugin-dialogs" spec="~1.2.1" />
