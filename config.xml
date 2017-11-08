@@ -24,6 +24,7 @@
   <preference name="ShowSplashScreenSpinner" value="true"/>
   <preference name="auto-hide-splash-screen" value="False"/>
   <preference name="KeyboardDisplayRequiresUserAction" value="false"/>
+      <preference name="android-minSdkVersion" value="14" />
   <plugin name="cordova-plugin-whitelist"/>
   <plugin name="cordova-plugin-admob-free" spec="~0.9.0"/>
   <plugin name="cordova-plugin-file"/>
