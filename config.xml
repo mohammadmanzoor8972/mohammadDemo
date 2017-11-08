@@ -62,7 +62,7 @@
   </platform>
   <platform name="android">
     <plugin name="cordova-plugin-background-app"/>
-    <plugin name="cordova-plugin-pushplugin"/>
+    <plugin name="phonegap-plugin-push"/>
   </platform>
   <icon src="icon.png"/>
   <splash src="splash.png"/>
