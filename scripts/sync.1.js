@@ -200,61 +200,194 @@ function sizeText(elementId, parentElementId) {
     }
 }
 
-function registerNotifications() {
-    var push = PushNotification.init({
-        "android": {
-            "senderID": "921820197008"
-        },
-        "browser": {},
-        "ios": {
-            "sound": true,
-            "vibration": true,
-            "badge": true
-        },
-        "windows": {}
-    });
 
-    push.on('registration', function(data) {
-        console.log('registration event: ' + data.registrationId);
-        localStorage.setItem('pushNotificationId', data.registrationId);
-        if (device.platform.toLowerCase() == 'android') {
-            RegisterAndroidDevice(data.registrationId);
-        } if (device.platform.toLowerCase() == 'ios') {
-            RegisterIOSDevice(data.registrationId);
-        }
-    });
 
-    push.on('error', function(e) {
-        console.log("push error = " + e.message);
-    });
+function successHandler(result) { }
 
-    push.on('notification', function(data) {
-        console.log('notification event');
-        navigator.notification.alert(
-            data.message,         // message
-            null,                 // callback
-            data.title,           // title
-            'Ok'                  // buttonName
-        );
-
-        defaultNotifyType =  e.payload ? e.payload.action : "";
-        if(e.payload.action=="apppage"){
-            defaultNotifyPage = e.payload.item;
-        } else if (e.payload.action=="wizard"){
-            defaultNotifyPage = "-"+e.payload.item;
-        } else if (e.payload.action=="webpage"){
-            defaultNotifyPage = e.payload.item.toLowerCase();
-        } else {
-            defaultNotifyPage =  "home.html";
-        }
-
-        if(defaultNotifyPage != defaultPage){
-            anyNotify = true;
-            moveTo(defaultNotifyPage,false);
-        }
-   });
+function errorHandler(error) {
+    alert('Unable to register for notifications: ' + error);
 }
 
+function onNotification(e) {
+    switch (e.event) {
+        case 'registered':
+            if (e.regid.length > 0) {
+                localStorage.PushID = e.regid;
+                var appurl = "https://app.capitaengage.co.uk/EngageService.svc/RegisterAndroidDevice/" + e.regid;
+
+                if (isStageURL == 1) {
+                    appurl = "https://appstage.capitaengage.co.uk/EngageService.svc/RegisterAndroidDevice/" + e.regid;
+                } else if (isStageURL == 2) {
+                    appurl = "https://apptest.capitaengage.co.uk/EngageService.svc/RegisterAndroidDevice/" + e.regid;
+                } // else default to Live
+                if (navigator.onLine) {
+                    $.ajax({
+                        dataType: "json",
+                        beforeSend: function (request) {
+                            request.setRequestHeader("deviceid", getEncryptedStorage('deviceid'));
+                        },
+                        url: appurl,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (data) { },
+                        error: function () {
+
+                            alert("Not registered");
+
+                        },
+                    });
+                }
+            }
+            break;
+        case 'message':
+        debugger;
+            var date = new Date();
+            var n = date.toDateString();
+            var time = date.toLocaleTimeString();
+            var notices = "<small>" + time + ' ' + n + "</small><br>" + e.message;
+            defaultNotifyType =  e.payload ? e.payload.action : "";
+            if(e.payload.action=="apppage"){
+                defaultNotifyPage = e.payload.item;
+            } else if (e.payload.action=="wizard"){
+                defaultNotifyPage = "-"+e.payload.item;
+            } else if (e.payload.action=="webpage"){
+                defaultNotifyPage = e.payload.item.toLowerCase();
+            } else {
+                defaultNotifyPage =  "home.html";
+            }
+
+            if (getEncryptedStorage('notices') == null) {
+                setEncryptedStorage('notices', notices);
+            } else {
+                setEncryptedStorage('notices', notices + "<hr>" + getEncryptedStorage('notices'));
+            }
+
+            if ($('#n1') != null) {
+                $('#n1').html(getEncryptedStorage('notices'));
+            }
+            if (e.foreground) {
+                //alert(e.message);
+
+                cordova.plugins.notification.local.schedule({
+                    id: noticecounter,
+                    title: e.title,
+                    text: e.message
+                });
+                noticecounter = noticecounter + 1;
+            };
+            if(defaultNotifyPage != defaultPage){
+                anyNotify = true;
+                moveTo(defaultNotifyPage,false);
+            }
+            
+            break;
+        default:
+            break;
+    }
+}
+
+function onNotificationAPN(e) {
+    var date = new Date();
+    var n = date.toDateString();
+    var time = date.toLocaleTimeString();
+    var notices = "<small>" + time + ' ' + n + "</small><br>" + e.alert;
+    if (getEncryptedStorage('notices') == null) {
+        setEncryptedStorage('notices', notices);
+    } else {
+        setEncryptedStorage('notices', notices + "<hr>" + getEncryptedStorage('notices'));
+    }
+
+    if ($('#n1') != null) {
+        $('#n1').html(getEncryptedStorage('notices'));
+    }
+    if (e.foreground == 1) {
+        if ($("#popupMessageBox") != null) {
+            if ($("#popupMessage") != null) {
+                $("#popupMessage").text(e.alert);
+                $("#popupMessageBox").popup("open");
+            }
+        }
+    }
+}
+
+function registerNotifications() {
+
+    if (window.plugins && window.plugins.pushNotification) {
+        // alert('hin33 ***** 22')
+        if (device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos") {
+            pushNotification = window.plugins.pushNotification;
+            pushNotification.register(
+                successHandler,
+                errorHandler, {
+                    "senderID": "921820197008",
+                    "ecb": "onNotification"  //Android
+                });
+        } else if (device.platform == 'ios' || device.platform == 'iOS' || device.platform == 'IOS') {
+            pushNotification = window.plugins.pushNotification;
+            pushNotification.register(
+                tokenHandler,
+                errorHandler, {
+                    "badge": "true",
+                    "sound": "true",
+                    "alert": "true",
+                    "ecb": "onNotificationAPN" //iOS
+                });
+
+        } else {
+            //WP8
+            //  alert('hin33 for Wp8');
+            pushNotification = window.plugins.pushNotification;
+
+            if (!localStorage.getItem("wp8PushUriDec")) {
+                // alert('register already....');
+                pushNotification.register(
+                    channelHandlerWp8,
+                    errorHandler,
+                    {
+                        "channelName": "MyChannelwp8",
+                        "ecb": "onNotificationWP8",
+                        "uccb": "channelHandlerWp8",
+                        "errcb": "jsonErrorHandler"
+                    });
+            }
+        }
+    } else if (device.platform == 'ios' || device.platform == 'iOS' || device.platform == 'IOS') {
+        //  alert('hin33 for iOS');
+        pushNotification = PushNotification.init({
+            "android": { "senderID": "921820197008" },
+            "ios": { "alert": "true", "badge": "true", "sound": "true" }
+        });
+
+        pushNotification.on('registration', function (data) {
+            // data.registrationId
+            tokenHandler(data.registrationId);
+
+        });
+        pushNotification.on('notification', function (data) {
+            onNotificationAPN(data);
+        });
+        pushNotification.on('error', function (e) {
+            // e.message
+        });
+    } else {
+        alert("pushNotification not found");
+        console.log("PushNotification not found :");
+    }
+}
+
+function onNotificationWP8(e) {
+
+    if (e.type == "toast" && e.jsonContent) {
+        pushNotification.showToastNotification(successHandler, errorHandler,
+            {
+                "Title": e.jsonContent["wp:Text1"], "Subtitle": e.jsonContent["wp:Text2"], "NavigationUri": e.jsonContent["wp:Param"]
+            });
+    }
+
+    if (e.type == "raw" && e.jsonContent) {
+        alert(e.jsonContent.Body);
+    }
+}
 
 function jsonErrorHandler(error) {
     console.log(error.code);
@@ -275,31 +408,8 @@ function channelHandlerWp8(data) {
     }
 }
 
-function RegisterAndroidDevice(result){
-        var appurl = "https://app.capitaengage.co.uk/EngageService.svc/RegisterAndroidDevice/" + result;
-        if (isStageURL == 1) {
-            appurl = "https://appstage.capitaengage.co.uk/EngageService.svc/RegisterAndroidDevice/" + result;
-        } else if (isStageURL == 2) {
-            appurl = "https://apptest.capitaengage.co.uk/EngageService.svc/RegisterAndroidDevice/" + result;
-        } // else default to Live
-        if (navigator.onLine) {
-            $.ajax({
-                dataType: "json",
-                beforeSend: function (request) {
-                    request.setRequestHeader("deviceid", getEncryptedStorage('deviceid'));
-                },
-                url: appurl,
-                type: 'GET',
-                dataType: 'json',
-                success: function (data) { },
-                error: function () {
-                    console.log("Not registered");
-                },
-            });
-        }
-}
 
-function RegisterIOSDevice(result) {
+function tokenHandler(result) {
     var appUrl = "https://app.capitaengage.co.uk/EngageService.svc/RegisterIOSDevice/" + result;
 
     if (isStageURL == 1) {
