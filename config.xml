@@ -32,7 +32,6 @@
   <plugin name="cordova-plugin-inappbrowser"/>
   <plugin name="phonegap-plugin-contentsync" version="1.2.3" src="https://github.com/phonegap/phonegap-plugin-contentsync"/>
   <plugin name="cordova-plugin-network-information"/>
-  <plugin name="de.appplant.cordova.plugin.local-notification"/>
   <plugin name="cordova-plugin-device"/>
   <plugin name="cordova-plugin-geolocation"/>
   <plugin name="cordova-plugin-backbutton"/>
@@ -62,8 +61,12 @@
   </platform>
   <platform name="android">
     <plugin name="cordova-plugin-background-app"/>
-    <plugin name="cordova-plugin-pushplugin"/> 
-    
+     <plugin name="cordova-plugin-console" spec="~1.0.3" />
+    <plugin name="cordova-plugin-dialogs" spec="~1.2.1" />
+    <plugin name="cordova-plugin-statusbar" spec="~2.1.3" />
+    <plugin name="phonegap-plugin-push" spec="~1.8.0">
+        <variable name="SENDER_ID" value="XXXXXXX" />
+    </plugin>
   </platform>
   <icon src="icon.png"/>
   <splash src="splash.png"/>
