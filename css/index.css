@@ -1,0 +1,110 @@
+﻿* {
+    -webkit-user-select: none;
+}
+
+@viewport
+{
+width:320px;
+}
+
+@-ms-viewport {
+width:320px;
+zoom-user:fixed;
+max-zoom:1;
+min-zoom:1;
+}
+
+
+body, html { 
+  -ms-overflow-style: none !important; 
+}
+input, textarea {
+    -webkit-user-select: auto !important;
+}
+
+.circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    font-size: 38px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #0063AD;
+    color: #0063AD;
+}
+
+.smallCircle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 24px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #0063AD;
+    color: #0063AD;
+}
+
+
+.circleText {
+    color: #0063AD;
+    padding-top: 6px;
+    padding-bottom: 12px;
+}
+
+
+
+#pull_to_refresh {
+  line-height: 60px;
+  height: 60px;
+  text-align: center;
+  background-color: #e2e7ed;
+  width: 100%;
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  border-bottom: 1px solid #e0e0e0;
+  color: #788193;
+  background-image: url(../images/arrow.png);
+  background-repeat: no-repeat;
+  background-size: 23px 53px;
+  background-position: 20px 0;
+  text-shadow: 0px 1px white;
+  z-index: 0;
+  -webkit-box-shadow: inset 0px -8px 4px -3px rgba(0, 0, 0, 0.12);
+  box-shadow: inset 0px -8px 4px -3px rgba(0, 0, 0, 0.12); }
+  #pull_to_refresh.visible {
+    background-image: url(../images/arrow_up.png);
+    background-size: 23px 53px;
+    background-position: 20px 0; }
+  #pull_to_refresh.refresh {
+    background-image: url(../images/spinner.gif);
+    background-size: 16px 16px;
+    background-position: 20px center; }
+
+
+    
+div#popupDialog-popup {
+    max-width: 100%!important;
+    top: 65px!important;
+    left: 0px!important;
+}
+
+#popupDialog .ui-content {
+    height: 601px;
+    overflow: hidden;
+}
+
+#popupDialog .ui-header.ui-bar-inherit {
+    height: 19px;
+    border-top: 2px solid gray;
+}
+
+#popupDialog .pintxt {
+    border: 1px solid black!important;
+    height: 60px!important;
+    padding: 26px!important;
+    font-size: 27px;
+}
+
+
+

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="com.capita.MohammadDemo" version="1.2" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US">
+  <name>Mohammad Demo</name>
+  <description>Demo</description>
+  <author href="http://www.capita-software.co.uk" email="engagesupport@capita.co.uk">Capita Business Services Ltd.</author>
+  <content src="index.html"/>
+  <preference name="target-device" value="universal"/>
+  <preference name="KeepRunning" value="True"/>
+  <preference name="ShowTitle" value="False"/>
+  <preference name="InAppBrowserStorageEnabled" value="True"/>
+  <preference name="SuppressesIncrementalRendering" value="True"/>
+  <preference name="Orientation" value="portrait"/>
+  <preference name="StatusBarOverlaysWebView" value="false"/>
+  <preference name="KeyboardShrinksView" value="false"/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <preference name="BackupWebStorage" value="none"/>
+  <preference name="Fullscreen" value="false"/>
+  <preference name="android-windowSoftInputMode" value="adjustResize"/>
+  <preference name="deployment-target" value=""/>
+  <preference name="SplashScreen" value="splash"/>
+  <preference name="SplashScreenDelay" value="60000"/>
+  <preference name="ShowSplashScreenSpinner" value="true"/>
+  <preference name="auto-hide-splash-screen" value="False"/>
+  <preference name="KeyboardDisplayRequiresUserAction" value="false"/>
+  <plugin name="cordova-plugin-whitelist"/>
+  <plugin name="cordova-plugin-admob-free" spec="~0.9.0"/>
+  <plugin name="cordova-plugin-file"/>
+  <plugin name="cordova-plugin-calendar"/>
+  <plugin name="cordova-plugin-file-transfer"/>
+  <plugin name="cordova-plugin-pin-dialog"/>
+  <plugin name="cordova-plugin-splashscreen"/>
+  <plugin name="cordova-plugin-inappbrowser"/>
+  <plugin name="phonegap-plugin-contentsync" version="1.2.3" src="https://github.com/phonegap/phonegap-plugin-contentsync"/>
+  <plugin name="cordova-plugin-network-information"/>
+  <plugin name="de.appplant.cordova.plugin.local-notification"/>
+  <plugin name="cordova-plugin-device"/>
+  <plugin name="cordova-plugin-geolocation"/>
+  <plugin name="cordova-plugin-backbutton"/>
+  <plugin name="cordova-plugin-secure-storage"/>
+  <plugin name="cordova-plugin-compat" spec="~1.1.0"/>
+  <allow-intent href="http:*"/>
+  <allow-intent href="https:*"/>
+  <allow-intent href="tel:*"/>
+  <allow-intent href="sms:*"/>
+  <allow-intent href="mailto:*"/>
+  <allow-intent href="geo:*"/>
+  <platform name="android">
+    <allow-intent href="market:*"/>
+    <allow-navigation href="*"/>
+    <preference name="android-minSdkVersion" value="21"/>
+  </platform>
+
+  <platform name="android">
+    <splash qualifier="land-hdpi" src="res/screens/android/drawable-land-hdpi/splash.png"/>
+    <splash qualifier="land-ldpi" src="res/screens/android/drawable-land-ldpi/splash.png"/>
+    <splash qualifier="land-mdpi" src="res/screens/android/drawable-land-mdpi/splash.png"/>
+    <splash qualifier="land-xhdpi" src="res/screens/android/drawable-land-xhdpi/splash.png"/>
+    <splash qualifier="land-xxhdpi" src="res/screens/android/drawable-land-xxhdpi/splash.png"/>
+    <splash qualifier="land-xxxhdpi" src="res/screens/android/drawable-land-xxxhdpi/splash.png"/>
+    <splash qualifier="port-hdpi" src="res/screens/android/drawable-port-hdpi/splash.png"/>
+    <splash qualifier="port-ldpi" src="res/screens/android/drawable-port-ldpi/splash.png"/>
+    <splash qualifier="port-mdpi" src="res/screens/android/drawable-port-mdpi/splash.png"/>
+    <splash qualifier="port-xhdpi" src="res/screens/android/drawable-port-xhdpi/splash.png"/>
+    <splash qualifier="port-xxhdpi" src="res/screens/android/drawable-port-xxhdpi/splash.png"/>
+    <splash qualifier="port-xxxhdpi" src="res/screens/android/drawable-port-xxxhdpi/splash.png"/>
+	<plugin name="cordova-plugin-background-app"/>
+	<plugin name="phonegap-plugin-push" version="1.9.0"/>
+  </platform>
+ 
+    
+  
+  <icon src="icon.png"/>
+  <splash src="splash.png"/>
+  <config-file platform="android" parent="/manifest" mode="merge">
+    <application android:theme="@android:style/Theme.NoTitleBar"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+  </config-file>
+
+
+
+  <access origin="http://*"/>
+  <access origin="https://*"/>
+  <access origin="tel:*" launch-external="yes"/>
+  <access origin="geo:*" launch-external="yes"/>
+  <access origin="mailto:*" launch-external="yes"/>
+  <access origin="sms:*" launch-external="yes"/>
+  <access origin="market:*" launch-external="yes"/>
+  <access origin="https://twitter.com" subdomains="true"/>
+  <access origin="http://twitter.com" subdomains="true"/>
+  <access origin="http://platform.twitter.com" subdomains="true"/>
+  <access origin="https://platform.twitter.com" subdomains="true"/>
+  <access origin="https://cdn.syndication.twimg.com"/>
+  <access origin="http://cdn.syndication.twimg.com"/>
+  <access origin="https://www.facebook.com" subdomains="true"/>
+  <access origin="http://www.facebook.com" subdomains="true"/>
+  <access origin="http://www.connect.facebook.net" subdomains="true"/>
+  <access origin="http://m.facebook.com" subdomains="true"/>
+  <allow-navigation href="about:*"/>
+  
+  <allow-navigation href="about:*" /> 
+<allow-navigation href="https://www.facebook.com" />
+<allow-navigation href="http://www.facebook.com" />
+<allow-navigation href="http://www.connect.facebook.net" />
+
+<feature name="IntentAndNavigationFilter">
+    <param name="ios-package" value="CDVIntentAndNavigationFilter"/>
+    <param name="onload" value="true"/>
+</feature>
+
+  <version>1.2</version>
+</widget>
