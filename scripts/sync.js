@@ -101,7 +101,7 @@ function GoogleAnalyticsInitilize(){
 
 function GoogleAdMobInit(){
     // Set AdMobAds options: 
-      admobid = {
+   /*   admobid = {
         banner: 'ca-app-pub-6605975537643533/'+googleAdBanner
       }
       
@@ -111,7 +111,8 @@ function GoogleAdMobInit(){
         autoShow: true,
     })
     
-    admob.banner.prepare()
+    admob.banner.prepare()*/
+    return "";
 }
 
 
