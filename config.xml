@@ -49,7 +49,7 @@
   <plugin name="phonegap-plugin-push" spec="~1.8.0">
     <variable name="SENDER_ID" value="XXXXXXX" />
   </plugin>
- <plugin name="cordova-plugin-admob-free" spec="~0.9.0"/>
+
   <platform name="android">
     <splash qualifier="port-hdpi" src="res/screens/android/drawable-port-hdpi/splash.png"/>
     <splash qualifier="port-ldpi" src="res/screens/android/drawable-port-ldpi/splash.png"/>
