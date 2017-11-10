@@ -238,13 +238,13 @@ function registerNotifications() {
             'Ok'                  // buttonName
         );
 
-        defaultNotifyType =  e.payload ? e.payload.action : "";
-        if(e.payload.action=="apppage"){
-            defaultNotifyPage = e.payload.item;
-        } else if (e.payload.action=="wizard"){
-            defaultNotifyPage = "-"+e.payload.item;
-        } else if (e.payload.action=="webpage"){
-            defaultNotifyPage = e.payload.item.toLowerCase();
+        defaultNotifyType =  data.additionalData ? data.additionalData.action : "";
+        if(data.additionalData.action=="apppage"){
+            defaultNotifyPage = data.additionalData.item;
+        } else if (data.additionalData.action=="wizard"){
+            defaultNotifyPage = "-"+data.additionalData.item;
+        } else if (data.additionalData.action=="webpage"){
+            defaultNotifyPage = data.additionalData.item.toLowerCase();
         } else {
             defaultNotifyPage =  "home.html";
         }
