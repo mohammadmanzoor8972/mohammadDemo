@@ -277,11 +277,11 @@ function channelHandlerWp8(data) {
 }
 
 function RegisterAndroidDevice(result){
-        var appurl = "https://app.capitaengage.co.uk/EngageService.svc/RegisterAndroidDevice/";
+        var appurl = "https://app.capitaengage.co.uk/EngageService.svc/RegisterAndroidDeviceNew/";
         if (isStageURL == 1) {
-            appurl = "https://appstage.capitaengage.co.uk/EngageService.svc/RegisterAndroidDevice/";
+            appurl = "https://appstage.capitaengage.co.uk/EngageService.svc/RegisterAndroidDeviceNew/";
         } else if (isStageURL == 2) {
-            appurl = "https://apptest.capitaengage.co.uk/EngageService.svc/RegisterAndroidDevice/";
+            appurl = "https://apptest.capitaengage.co.uk/EngageService.svc/RegisterAndroidDeviceNew/";
         } // else default to Live
         if (navigator.onLine) {
             $.ajax({
@@ -302,12 +302,12 @@ function RegisterAndroidDevice(result){
 }
 
 function RegisterIOSDevice(result) {
-    var appUrl = "https://app.capitaengage.co.uk/EngageService.svc/RegisterIOSDevice/";
+    var appUrl = "https://app.capitaengage.co.uk/EngageService.svc/RegisterIOSDeviceNew/";
 
     if (isStageURL == 1) {
-        appUrl = "https://appstage.capitaengage.co.uk/EngageService.svc/RegisterIOSDevice/";
+        appUrl = "https://appstage.capitaengage.co.uk/EngageService.svc/RegisterIOSDeviceNew/";
     } else if (isStageURL == 2) {
-        appUrl = "https://apptest.capitaengage.co.uk/EngageService.svc/RegisterIOSDevice/";
+        appUrl = "https://apptest.capitaengage.co.uk/EngageService.svc/RegisterIOSDeviceNew/";
     } // else default to Live
 
     $.ajax({
