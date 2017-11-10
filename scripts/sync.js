@@ -277,17 +277,18 @@ function channelHandlerWp8(data) {
 }
 
 function RegisterAndroidDevice(result){
-        var appurl = "https://app.capitaengage.co.uk/EngageService.svc/RegisterAndroidDevice/" + result;
+        var appurl = "https://app.capitaengage.co.uk/EngageService.svc/RegisterAndroidDevice/";
         if (isStageURL == 1) {
-            appurl = "https://appstage.capitaengage.co.uk/EngageService.svc/RegisterAndroidDevice/" + result;
+            appurl = "https://appstage.capitaengage.co.uk/EngageService.svc/RegisterAndroidDevice/";
         } else if (isStageURL == 2) {
-            appurl = "https://apptest.capitaengage.co.uk/EngageService.svc/RegisterAndroidDevice/" + result;
+            appurl = "https://apptest.capitaengage.co.uk/EngageService.svc/RegisterAndroidDevice/";
         } // else default to Live
         if (navigator.onLine) {
             $.ajax({
                 dataType: "json",
                 beforeSend: function (request) {
                     request.setRequestHeader("deviceid", getEncryptedStorage('deviceid'));
+                    request.setRequestHeader("identifier", result);
                 },
                 url: appurl,
                 type: 'GET',
@@ -301,12 +302,12 @@ function RegisterAndroidDevice(result){
 }
 
 function RegisterIOSDevice(result) {
-    var appUrl = "https://app.capitaengage.co.uk/EngageService.svc/RegisterIOSDevice/" + result;
+    var appUrl = "https://app.capitaengage.co.uk/EngageService.svc/RegisterIOSDevice/";
 
     if (isStageURL == 1) {
-        appUrl = "https://appstage.capitaengage.co.uk/EngageService.svc/RegisterIOSDevice/" + result;
+        appUrl = "https://appstage.capitaengage.co.uk/EngageService.svc/RegisterIOSDevice/";
     } else if (isStageURL == 2) {
-        appUrl = "https://apptest.capitaengage.co.uk/EngageService.svc/RegisterIOSDevice/" + result;
+        appUrl = "https://apptest.capitaengage.co.uk/EngageService.svc/RegisterIOSDevice/";
     } // else default to Live
 
     $.ajax({
@@ -314,6 +315,7 @@ function RegisterIOSDevice(result) {
         beforeSend: function (request) {
             request.setRequestHeader("deviceid", getEncryptedStorage('deviceid'));
             request.setRequestHeader("homepage", appName);
+            request.setRequestHeader("identifier", result);
         },
         url: appUrl,
         type: 'GET',
