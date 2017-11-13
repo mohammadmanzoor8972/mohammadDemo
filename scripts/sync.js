@@ -16,7 +16,7 @@ function setEncryptedStorage(key, value) {
     if (value) {
         var encrypted = CryptoJS.AES.encrypt(value.toString(), key);
         var erDeviceId = encrypted.toString();
-        localStorage.setItem(key, erDeviceId);
+        localStorage.setItem(key, erDeviceId); 
     }
 }
 
